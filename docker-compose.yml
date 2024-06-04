@@ -1,10 +1,10 @@
-version: "3"
 services:
   web:
-    build: "./app"
+    build:
+      context: app
+      target: builder
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT
     ports:
       - "5000:5000"
-    volumes:
-      - /home/qipz/projects/webdev/python/docker-files/metabolic-syndrome:/app
-    environment:
-      - NAME=Test
