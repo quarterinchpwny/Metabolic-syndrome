@@ -1,28 +1,32 @@
-# syntax=docker/dockerfile:1.4
-FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
+FROM python:3.9.2-alpine
 
-WORKDIR /app
+# upgrade pip
+RUN pip install --upgrade pip
 
-COPY requirements.txt /app
+# get curl for healthchecks
+RUN apk add curl
 
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+# permissions and nonroot user for tightened security
+RUN adduser -D nonroot
+RUN mkdir /home/app/ && chown -R nonroot:nonroot /home/app
+RUN mkdir -p /var/log/flask-app && touch /var/log/flask-app/flask-app.err.log && touch /var/log/flask-app/flask-app.out.log
+RUN chown -R nonroot:nonroot /var/log/flask-app
+WORKDIR /home/app
+USER nonroot
 
-COPY . /app
+# copy all the files to the container
+COPY --chown=nonroot:nonroot . .
 
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+# venv
+ENV VIRTUAL_ENV=/home/app/venv
 
-FROM builder as dev-envs
+# python setup
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN export FLASK_APP=app.py
+RUN pip install -r requirements.txt
 
-RUN <<EOF
-apk update
-apk add git
-EOF
+# define the port number the container should expose
+EXPOSE 5000
 
-RUN <<EOF
-addgroup -S docker
-adduser -S --shell /bin/bash --ingroup docker vscode
-EOF
-
-COPY --from=gloursdocker/docker / /
-# install Docker tools (cli, buildx, compose)
+CMD ["python", "app.py"]
