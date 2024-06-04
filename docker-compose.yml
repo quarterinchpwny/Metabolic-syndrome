@@ -5,6 +5,6 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - .:/app
+      - /home/qipz/projects/webdev/python/docker-files/metabolic-syndrome:/app
     environment:
-      - NAME=World
+      - NAME=Test
