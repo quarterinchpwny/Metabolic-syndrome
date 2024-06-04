@@ -1,363 +1,522 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Metabolic Syndrome Prediction</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Metabolic Syndrome Prediction</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
 
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      name="viewport"
+    />
     <meta name="viewport" content="width=device-width" />
 
+    <!--     Fonts and icons     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+    />
 
+    <!-- CSS Files -->
 
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link
+      href="{{ url_for('static', filename='/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='/css/material-bootstrap-wizard.css') }}"
+      rel="stylesheet"
+    />
 
-	<!-- CSS Files -->
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/logo.png') }}"
+      type="image/x-icon"
+    />
+    <style>
+      th {
+        font-weight: bold;
+      }
+    </style>
+  </head>
 
-	<link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet" />
-	<link href="{{ url_for('static', filename='/css/material-bootstrap-wizard.css') }}" rel="stylesheet" />
+  <body>
+    <div
+      class="image-container set-full-height bg"
+      style="background-image: url('static/img/bg.jpg')"
+    >
+      <!--   Big container   -->
+      <div class="container" id="main">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+              <div class="card wizard-card" data-color="blue" id="wizard">
+                <form action="" method="">
+                  <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
 
-	<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
-<style>
-	th{
-		font-weight: bold;
+                  <div class="wizard-header">
+                    <h3 class="wizard-title">
+                      <img
+                        src="{{ url_for('static', filename='img/logo.png') }}"
+                        style="height: 65px"
+                      />Metabolic Syndrome Prediction
+                    </h3>
+                    <h5>Enter Necessary information in the following form</h5>
+                  </div>
+                  <div class="wizard-navigation">
+                    <ul id="try">
+                      <li>
+                        <a href="#Demographic" data-toggle="tab">Demographic</a>
+                      </li>
+                      <li>
+                        <a href="#BodyRatio" data-toggle="tab"
+                          >Waist Circ. and BMI</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#BloodContents" data-toggle="tab"
+                          >Blood Diagnostics</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
 
-	}
+                  <div class="tab-content">
+                    <div class="tab-pane" id="Demographic">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <h4 class="info-text">
+                            Let's start with the basic details
+                          </h4>
+                        </div>
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Age </label>
+                            <input
+                              class="form-control"
+                              type="number"
+                              step="0.01"
+                              id="age"
+                              name="age"
+                              min="0"
+                              style="width: 100%"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Sex</label>
+                            <select
+                              class="form-control"
+                              name="sex"
+                              id="sex"
+                              style="width: 100%"
+                            >
+                              <option disabled="" selected=""></option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Marital Status</label>
+                            <select
+                              class="form-control"
+                              name="Marital"
+                              id="Marital"
+                              style="width: 100%"
+                            >
+                              <option value="" disabled selected=""></option>
+                              <option value="Married">Married</option>
+                              <option value="Single">Single</option>
+                              <option value="Divorced">Divorced</option>
+                              <option value="Separated">Separated</option>
+                              <option value="Widowed">Widowed</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Race</label>
+                            <select
+                              class="form-control"
+                              name="Race"
+                              id="Race"
+                              style="width: 100%"
+                            >
+                              <option value="" disabled selected=""></option>
+                              <option value="white">White</option>
+                              <option value="Black">Black</option>
+                              <option value="Asian">Asian</option>
+                              <option value="Hispanic">Hispanic</option>
+                              <option value="MexAmerican">
+                                Mexican American
+                              </option>
+                              <option value="Other">Other</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Income</label>
 
+                            <input
+                              class="form-control"
+                              type="number"
+                              step="0.01"
+                              id="Income"
+                              name="Income"
+                              min="0"
+                              style="width: 100%"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="BodyRatio">
+                      <h4 class="info-text">
+                        What is your Waist Circumference and BMI?
+                      </h4>
+                      <div class="row">
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label"
+                              >Waist Circumference</label
+                            >
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="WaistCirc"
+                                name="WaistCirc"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Body Mass Index</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="BMI"
+                                name="BMI"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="BloodContents">
+                      <h4 class="info-text">
+                        What are your Blood Diagnostics?
+                      </h4>
+                      <div class="row">
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Albuminuria</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="Albuminuria"
+                                name="Albuminuria"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-group label-floating">
+                            <label class="control-label"
+                              >Urine albumin-creatinine ratio (UrAlbCr)</label
+                            >
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="UrAlbCr"
+                                name="UrAlbCr"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Uric Acid</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="UricAcid"
+                                name="UricAcid"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Blood Glucose</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="BloodGlucose"
+                                name="BloodGlucose"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
 
-</style>
-</head>
+                        <div class="col-sm-5 col-sm-offset-1">
+                          <div class="form-group label-floating">
+                            <label class="control-label"
+                              >High-density Lipoprotein</label
+                            >
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="HDL"
+                                name="HDL"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
 
-<body>
-	<div class="image-container set-full-height bg" style="background-image: url('static/img/bg.jpg')">
-	    <!--   Big container   -->
-	    <div class="container" id="main">
-	        <div class="row">
-		        <div class="col-sm-8 col-sm-offset-2">
-		            <!--      Wizard container        -->
-		            <div class="wizard-container">
-		                <div class="card wizard-card" data-color="blue" id="wizard">
-			                <form action="" method="">
-			                <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
+                        <div class="col-sm-5">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Triglycerides</label>
+                            <div class="input-group">
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="0.01"
+                                id="Triglycerides"
+                                name="Triglycerides"
+                                min="0"
+                                style="width: 100%"
+                              />
+                              <span class="input-group-addon"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-		                    	<div class="wizard-header">
-		                        	<h3 class="wizard-title">
-		                        		<img src="{{ url_for('static', filename='img/logo.png') }}" style="height: 65px;">Metabolic Syndrome Prediction
-		                        	</h3>
-									<h5>Enter Necessary information in the following form</h5>
-		                    	</div>
-								<div class="wizard-navigation">
-									<ul id="try">
-			                            <li><a href="#Demographic" data-toggle="tab">Demographic</a></li>
-			                            <li><a href="#BodyRatio" data-toggle="tab">Waist Circ. and BMI</a></li>
-										<li><a href="#BloodContents" data-toggle="tab">Blood Diagnostics</a></li>
-										
-			                        </ul>
-								</div>
+                  <div class="wizard-footer">
+                    <div class="pull-right">
+                      <input
+                        type="button"
+                        class="btn btn-next btn-fill btn-primary btn-wd"
+                        name="next"
+                        value="Next"
+                      />
+                      <input
+                        type="button"
+                        id="makePred"
+                        class="btn btn-finish btn-fill btn-primary btn-wd"
+                        name="Finish"
+                        value="Finish"
+                      />
+                    </div>
+                    <div class="pull-left">
+                      <input
+                        type="button"
+                        class="btn btn-previous btn-fill btn-default btn-wd"
+                        name="previous"
+                        value="Previous"
+                      />
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- wizard container -->
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!--  big container -->
 
-		                        <div class="tab-content">
-		                            <div class="tab-pane" id="Demographic">
-		                            	<div class="row">
-		                                	<div class="col-sm-12">
-		                                    	<h4 class="info-text"> Let's start with the basic details</h4>
-		                                	</div>
-		                                	<div class="col-sm-5 col-sm-offset-1">
-		                                    	<div class="form-group label-floating">
-		                                        	<label class="control-label">Age </label>
-                                        			<input class='form-control' type="number" step="0.01" id="age" name="age"  min="0"  style="width:100%;">
-		                                    	</div>
-		                                	</div>
-		                                	<div class="col-sm-5">
-		                                    	<div class="form-group label-floating">
-		                                            <label class="control-label">Sex</label>
-														<select class='form-control' name="sex" id="sex" style="width:100%;">
-															<option disabled="" selected=""></option>
-															<option value="Male">Male</option>
-															<option value="Female">Female</option>
-														</select>
-	                                        	</div>
-		                                	</div>
-		                                	<div class="col-sm-5 col-sm-offset-1">
-		                                    	<div class="form-group label-floating">
-		                                        	<label class="control-label">Marital Status</label>
-													<select class='form-control' name="Marital" id="Marital" style="width:100%;">
-														<option value="" disabled selected=""></option>
-														<option value="Married">Married</option>
-														<option value="Single">Single</option>
-														<option value="Divorced">Divorced</option>
-														<option value="Separated">Separated</option>
-														<option value="Widowed">Widowed</option>
-													  </select>
-		                                    	</div>
-		                                	</div>
-											<div class="col-sm-5">
-		                                    	<div class="form-group label-floating">
-		                                        	<label class="control-label">Race</label>
-													<select class='form-control' name="Race" id="Race" style="width:100%;">
-														<option value="" disabled selected=""></option>
-														<option value="white">White</option>
-														<option value="Black">Black</option>
-														<option value="Asian">Asian</option>
-														<option value="Hispanic">Hispanic</option>
-														<option value="MexAmerican">Mexican American</option>
-														<option value="Other">Other</option>
-													  </select>
-		                                		</div>
-											</div>
-		                                	<div class="col-sm-5 col-sm-offset-1">
-		                                    	<div class="form-group label-floating">
-		                                        	<label class="control-label">Income</label>
+      <!--   Big container   -->
+      <div class="container" id="result" hidden>
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+              <div class="card2 whiz-card" data-color="blue">
+                <div class="wizard-header">
+                  <h3 class="wizard-title">
+                    <img
+                      src="{{ url_for('static', filename='img/logo.png') }}"
+                      style="height: 65px"
+                    />Metabolic Syndrome Prediction
+                    <br />
+                    Patient Information
+                  </h3>
 
-														<input class='form-control' type="number" step="0.01" id="Income" name="Income" min="0" style="width:100%;">
+                  <h4 id="hfProb"></h4>
+                </div>
+                <div class="tab-content2">
+                  <div class="tab-pane">
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <th scope="row">Sex:</th>
+                              <td id="tdSex"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Age:</th>
+                              <td id="tdAge"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Marital Status:</th>
+                              <td id="tdMarital"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Income:</th>
+                              <td id="tdIncome"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Race:</th>
+                              <td id="tdRace"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Waist Circumference:</th>
+                              <td id="tdWC"></td>
+                            </tr>
 
-		                                    	</div>
-		                                	</div>
-											
-		                            	</div>
-		                            </div>
-		                            <div class="tab-pane" id="BodyRatio">
-		                                <h4 class="info-text">What is your Waist Circumference and BMI? </h4>
-										<div class="row">
-		                                    <div class="col-sm-5 col-sm-offset-1">
-		                                      <div class="form-group label-floating">
-		                                        	<label class="control-label">Waist Circumference</label>
-		                                        	<div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="WaistCirc" name="WaistCirc"  min="0" style="width:100%;">
-		                                            	<span class="input-group-addon"></span>
-		                                        	</div>
-		                                    	</div>
-		                                    </div>
-		                                    <div class="col-sm-5">
-												<div class="form-group label-floating">
-		                                        	<label class="control-label">Body Mass Index</label>
-		                                        	<div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="BMI" name="BMI"  min="0" style="width:100%;">
-		                                            	<span class="input-group-addon"></span>
-		                                        	</div>
-		                                    	</div>
-		                                    </div>
-											</div>
-		                            </div>
-		                            <div class="tab-pane" id="BloodContents">
-										<h4 class="info-text">What are your Blood Diagnostics? </h4>
-										<div class="row">
-		                                    <div class="col-sm-5 col-sm-offset-1">
-		                                      <div class="form-group label-floating">
-		                                        	<label class="control-label">Albuminuria</label>
-		                                        	<div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="Albuminuria" name="Albuminuria"  min="0"  style="width:100%;">
-		                                            	<span class="input-group-addon"></span>
-		                                        	</div>
-		                                    	</div>
-		                                    </div>
-		                                    <div class="col-sm-5">
-												<div class="form-group label-floating">
-		                                        	<label class="control-label">Urine albumin-creatinine ratio (UrAlbCr)</label>
-		                                        	<div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="UrAlbCr" name="UrAlbCr"   min="0"  style="width:100%;">
-		                                            	<span class="input-group-addon"></span>
-		                                        	</div>
-		                                    	</div>
-		                                    </div>
-											<div class="col-sm-5 col-sm-offset-1">
-												<div class="form-group label-floating">
-													  <label class="control-label">Uric Acid</label>
-													  <div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="UricAcid" name="UricAcid" min="0"  style="width:100%;">
-														<span class="input-group-addon"></span>
-													  </div>
-												  </div>
-											  </div>
-											  <div class="col-sm-5">
-												  <div class="form-group label-floating">
-													  <label class="control-label">Blood Glucose</label>
-													  <div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="BloodGlucose" name="BloodGlucose"  min="0"  style="width:100%;">
-														<span class="input-group-addon"></span>
-													  </div>
-												  </div>
-											  </div>
+                            <tr>
+                              <th scope="row">Body Mass Index:</th>
+                              <td id="tdBMI"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-sm-5">
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <th scope="row">Triglycerides:</th>
+                              <td id="tdT"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Albuminuria:</th>
+                              <td id="tdA"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">
+                                Urine albumin-creatinine ratio (UrAlbCr):
+                              </th>
+                              <td id="tdUB"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Uric Acid:</th>
+                              <td id="tdUA"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Blood Glucose:</th>
+                              <td id="tdBG"></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">High-density Lipoprotein:</th>
+                              <td id="tdHDL"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wizard-footer">
+                  <div class="pull-right">
+                    <input
+                      type="button"
+                      class="btn btn-next btn-fill btn-primary btn-wd"
+                      name="Reset"
+                      value="Reset"
+                      onClick="history.go(0);"
+                    />
+                  </div>
 
-											  <div class="col-sm-5 col-sm-offset-1">
-												<div class="form-group label-floating">
-													  <label class="control-label">High-density Lipoprotein</label>
-													  <div class="input-group">
-														<input class='form-control' type="number" step="0.01" id="HDL" name="HDL"   min="0"  style="width:100%;">
-														<span class="input-group-addon"></span>
-													  </div>
-												  </div>
-											  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <!-- wizard container -->
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!--  big container -->
+    </div>
+  </body>
+  <!-- {{ url_for('static', filename='/js/jquery.validate.min.js') }}-->
 
-											  <div class="col-sm-5">
-												  <div class="form-group label-floating">
-													  <label class="control-label">Triglycerides</label>
-													  <div class="input-group" >
-														<input class='form-control' type="number" step="0.01" id="Triglycerides" name="Triglycerides"  min="0"  style="width:100%;">
-														<span class="input-group-addon" ></span>
-													  </div>
-												  </div>
-											  </div>
-										</div>
-		                            </div>
-								
-		                        </div>
-								
-		                        <div class="wizard-footer">
-	                            	<div class="pull-right">
-	                                    <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='next' value='Next'  />
-										<input type='button'id='makePred' class='btn btn-finish btn-fill btn-primary btn-wd' name='Finish' value='Finish'  />
-										
-	                                </div>
-	                                <div class="pull-left">
-	                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
-	                                </div>
-		                            <div class="clearfix"></div>
-		                        </div>
-			                </form>
-		                </div>
-		            </div> <!-- wizard container -->
-		        </div>
-	        </div> <!-- row -->
-	    </div> <!--  big container -->
+  <!--   Core JS Files   -->
+  <script
+    src="{{ url_for('static', filename='/js/jquery-2.2.4.min.js') }}"
+    type="text/javascript"
+  ></script>
+  <script
+    src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"
+    type="text/javascript"
+  ></script>
+  <script
+    src="{{ url_for('static', filename='/js/jquery.bootstrap.js') }}"
+    type="text/javascript"
+  ></script>
 
-			    <!--   Big container   -->
-				<div class="container" id="result" hidden>
-					<div class="row">
-						<div class="col-sm-8 col-sm-offset-2">
-							<!--      Wizard container        -->
-							<div class="wizard-container">
-								<div class="card2 whiz-card" data-color="blue" >
-									<div class="wizard-header">
-										<h3 class="wizard-title">
-											<img src="{{ url_for('static', filename='img/logo.png') }}" style="height: 65px;">Metabolic Syndrome Prediction
-											<br>
-											Patient Information
-										</h3>
-										
-										<h4 id="hfProb">
+  <script src="{{ url_for('static', filename='/js/api.js') }}"></script>
 
-										</h4>
-									</div>
-									<div class="tab-content2">
-										<div class="tab-pane">
-											<div class="row">
-												<div class="col-sm-5 col-sm-offset-1">
-													<table class="table">
+  <!--  Plugin for the Wizard -->
+  <script src="{{ url_for('static', filename='/js/material-bootstrap-wizard.js') }}"></script>
 
-														<tbody>
-														  <tr>
-															<th scope="row">Sex: </th>
-															<td id="tdSex"> </td>
-														  </tr>
-														  <tr>
-															<th scope="row">Age: </th>
-															<td id="tdAge"></td>
-														  </tr>
-														  <tr>
-															<th scope="row">Marital Status: </th>
-															<td id="tdMarital"></td>
-														  </tr>
-														  <tr>
-															<th scope="row">Income: </th>
-															<td id="tdIncome"></td>
-														  </tr>
-														  <tr>
-															<th scope="row">Race: </th>
-															<td id="tdRace"></td>
-														  </tr>
-														  <tr>
-															<th scope="row">Waist Circumference: </th>
-															<td id="tdWC"></td>
-														</tr>			
-														
-														<tr>
-															<th scope="row">Body Mass Index: </th>
-															<td id="tdBMI"></td>
-														</tr>
-										  
-													
-														</tbody>
-													  </table>
-											
-											
-												</div>
-												<div class="col-sm-5">
-												
-													<table class="table">
-
-														<tbody>
-															<tr>
-																<th scope="row">Triglycerides: </th>
-																<td id="tdT"></td>
-															</tr>		
-															<tr>
-																<th scope="row">Albuminuria: </th>
-																<td id="tdA"></td>
-															</tr>
-															<tr>
-																<th scope="row">Urine albumin-creatinine ratio (UrAlbCr): </th>
-																<td id="tdUB"></td>
-															</tr>
-															<tr>
-																<th scope="row">Uric Acid: </th>
-																<td id="tdUA"></td>
-															</tr>
-															<tr>
-																<th scope="row">Blood Glucose: </th>
-																<td id="tdBG"></td>
-															</tr>
-															<tr>
-																<th scope="row">High-density Lipoprotein: </th>
-																<td id="tdHDL"></td>
-															</tr>
-														</tbody>
-
-
-													</table>
-		  
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="wizard-footer">
-										<div class="pull-right">
-											<input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='Reset' value='Reset' onClick="history.go(0);" />
-											
-										</div>
-
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div> <!-- wizard container -->
-						</div>
-					</div> <!-- row -->
-				</div> <!--  big container -->
-
-	</div>
-
-
-
-</body>
-<!-- {{ url_for('static', filename='/js/jquery.validate.min.js') }}-->
-
-	<!--   Core JS Files   -->
-	<script src="{{ url_for('static', filename='/js/jquery-2.2.4.min.js') }}" type="text/javascript"></script>
-	<script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}" type="text/javascript"></script>
-	<script src="{{ url_for('static', filename='/js/jquery.bootstrap.js') }}" type="text/javascript"></script>
-
-
-	<script src="{{ url_for('static', filename='/js/api.js') }}"></script>
-
-	<!--  Plugin for the Wizard -->
-	<script src="{{ url_for('static', filename='/js/material-bootstrap-wizard.js') }}"></script>
-
-	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
-	<script src="{{ url_for('static', filename='/js/jquery.validate.min.js') }}"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
+  <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+  <script src="{{ url_for('static', filename='/js/jquery.validate.min.js') }}"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </html>
-
-
-
