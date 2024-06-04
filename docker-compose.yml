@@ -1,10 +1,10 @@
+version: "3"
 services:
   web:
-    build:
-      context: app
-      target: builder
-    # flask requires SIGINT to stop gracefully
-    # (default stop signal from Compose is SIGTERM)
-    stop_signal: SIGINT
+    build: .
     ports:
       - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - NAME=World
