@@ -1,39 +1,47 @@
 import pandas as pd
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from services.model_utils import predict_hf
 
 
-bp1 = Blueprint('main', __name__, url_prefix='/main')
+bp1 = Blueprint('api', __name__, url_prefix='/api')
 
-
+def shape_response(code , message, data):
+    response = {
+            'code': code,
+            'message': message,
+            'data':data,
+        }
+    return response
 def check_form_fields(form_data):
-    required_fields = ['sex', 'Marital', 'Income', 'Race', 'WaistCirc', 'Age', 'BMI', 'Albuminuria', 'UrAlbCr', 'UricAcid', 'BloodGlucose', 'HDL', 'Triglycerides']
+    required_fields = [
+        'sex', 'Marital', 'Income', 'Race', 'WaistCirc', 'Age', 'BMI', 
+        'Albuminuria', 'UrAlbCr', 'UricAcid', 'BloodGlucose', 'HDL', 
+        'Triglycerides'
+    ]
     
     missing_fields = [field for field in required_fields if field not in form_data]
     
     if missing_fields:
-        print("The following fields are missing from the form:", missing_fields)
-        return {'is_empty':True , 'missing_fields':missing_fields}
-    else:
-        print("All required fields are present in the form.")
-        return True
-    
-@bp1.route('/api/make_prediction', methods=['POST'])
+        return {'is_empty': True, 'missing_fields': missing_fields}
+    return {'is_empty': False}
 
-def make_prediction():
-    
-    checkFields = check_form_fields(request.form)
-    if(checkFields['is_empty']):
-        return {'missing_fields':checkFields['missing_fields'] , 'code':'422'}  
-    
-    
-    # form_df:pd.DataFrame = pd.DataFrame(request.form, index=[0])
-    
-    # pred = predict_hf(form_df)
-    # print(pred)
-    # pred_class_1 = pred[0][0]
+@bp1.route('/predict', methods=['POST'])
+
+def predict():
+
+    form_data = request.form
+    check_fields = check_form_fields(form_data)
+
+    if check_fields['is_empty']:
+        data = {'missing_fields' : check_fields['missing_fields']}
+        response = shape_response(422,'Invalid fields', data)
+        return jsonify(response), 422
+
   
+    # form_df = pd.DataFrame([form_data.to_dict()])
+    # pred = predict_hf(form_df)
+    # pred_class_1 = pred[0][0]
+    # return jsonify({'pred': pred_class_1})
 
-
-    # return {'pred':pred_class_1}
+    return jsonify({'message': 'Prediction logic not implemented'}), 200
 
