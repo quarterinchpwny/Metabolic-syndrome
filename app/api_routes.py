@@ -28,13 +28,13 @@ def check_form_fields(form_data):
 @bp1.route('/predict', methods=['POST'])
 
 def predict():
-
-    form_data = request.form
-    check_fields = check_form_fields(form_data)
-
+ 
+    json_data = request.get_json(force=True) 
+    check_fields = check_form_fields(json_data)
+   
     if check_fields['is_empty']:
         data = {'missing_fields' : check_fields['missing_fields']}
-        response = shape_response(422,'Invalid fields', data)
+        response = shape_response(422,'Invalid data', data)
         return jsonify(response), 422
 
   
